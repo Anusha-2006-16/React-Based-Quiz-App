@@ -1,6 +1,9 @@
-.selected{
-    background-color: rgb(246, 237, 237);
+/* .selected{
+    background-color: rgb(26, 113, 46);
 }
+.wrongSelected{
+    background-color: red;
+} */
 /* .button-disabled{
     background-color: red;
 } */
@@ -46,12 +49,12 @@ li:hover {
 
 /* Highlight selected option */
 li.selected {
-  background-color: #4caf50;
+  background-color: #636563;
   color: white;
-  border-color: #4caf50;
+  border-color: #8c968c;
   font-weight: bold;
 }
-
+ 
 /* Buttons */
 button {
   margin: 10px;

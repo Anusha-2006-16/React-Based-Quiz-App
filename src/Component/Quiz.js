@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import quizCSS from'./Quiz.css'
 import QuizList from './QuizList';
+import { useEffect } from 'react';
 export default function Quiz() {
  
     const questions = [
@@ -61,31 +62,37 @@ const[currAnswer,setCurrentAnswer]=useState(null);
 const handleClick=(option)=>{
     setCurrentAnswer(option);
 }
- const handleNextButton=()=>{
-    if(currAnswer === questions[currQuestionIndex].answer)
-    {
-        setScore(score+1);
-    }
-    setCurrQuestionIndex(currQuestionIndex+1);
-    setCurrentAnswer(null);
- }
+
  const handleRestart=()=>{
+    setTimer(0);
     setCurrQuestionIndex(0);
     setCurrentAnswer(null);
     setScore(0);
  }
- const handlePreviousButton=()=>{
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prev) => prev + 1)
+    }, 1000)
 
+    if (timer >= 10) {
+      handleNextButton()
+    }
+
+    return () => clearInterval(interval) // cleanup
+  }, [timer])
+ const handlePreviousButton=()=>{
+setTimer(0);
     setCurrQuestionIndex(currQuestionIndex-1);
     setCurrentAnswer(null);
  }
+ 
   return (
     <div>
       
           {
             currQuestionIndex<questions.length ?   <QuizList question={questions[currQuestionIndex].question} handleClick={handleClick} 
             className={currAnswer === null ? '' :'selected'} currAnswer={currAnswer}
-            answer={questions[currQuestionIndex].answer} options={questions[currQuestionIndex].options}/>:<>
+           answer={questions[currQuestionIndex].answer} options={questions[currQuestionIndex].options}/>:<>
             <h2>Your Score is {score} out of {questions.length} questions</h2>
             </>
           }
